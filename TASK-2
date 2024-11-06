@@ -1,1 +1,92 @@
+//Develop a Python program to track and manage student grades. The
+program should allow the user to input grades for different subjects or
+assignments, calculate the average grade, and display the overall
+grade along with any additional information (such as letter grade or
+GPA).
+
+
+def calculate_gpa(average_grade):
+    """
+    Converts average numerical grade to GPA on a scale of 0 to 4.
+    """
+    if 90 <= average_grade <= 100:
+        return 4.0
+    elif 80 <= average_grade < 90:
+        return 3.0
+    elif 70 <= average_grade < 80:
+        return 2.0
+    elif 60 <= average_grade < 70:
+        return 1.0
+    else:
+        return 0.0
+
+
+def calculate_letter_grade(average_grade):
+    """
+    Converts average numerical grade to letter grade.
+    """
+    if 90 <= average_grade <= 100:
+        return 'A'
+    elif 80 <= average_grade < 90:
+        return 'B'
+    elif 70 <= average_grade < 80:
+        return 'C'
+    elif 60 <= average_grade < 70:
+        return 'D'
+    else:
+        return 'F'
+
+
+def get_student_grades():
+    """
+    Prompts the user to input grades for different subjects and calculates the average.
+    """
+    grades = []
+    while True:
+        subject = input("Enter the subject name (or type 'done' to finish): ")
+        if subject.lower() == 'done':
+            break
+        try:
+            grade = float(input(f"Enter the grade for {subject}: "))
+            if grade < 0 or grade > 100:
+                print("Please enter a grade between 0 and 100.")
+            else:
+                grades.append(grade)
+        except ValueError:
+            print("Invalid input. Please enter a valid number for the grade.")
+    
+    return grades
+
+
+def main():
+    print("Welcome to the Student Grade Tracker!\n")
+    
+    grades = get_student_grades()
+    
+    if len(grades) == 0:
+        print("No grades entered. Exiting program.")
+        return
+    
+    average_grade = sum(grades) / len(grades)
+    letter_grade = calculate_letter_grade(average_grade)
+    gpa = calculate_gpa(average_grade)
+
+    print("\nGrade Summary:")
+    print(f"Grades: {grades}")
+    print(f"Average Grade: {average_grade:.2f}")
+    print(f"Letter Grade: {letter_grade}")
+    print(f"GPA: {gpa:.2f}")
+
+    # Optional: Provide a remark based on the GPA
+    if gpa == 4.0:
+        print("Excellent! Keep up the great work!")
+    elif gpa >= 3.0:
+        print("Good job! You're doing well!")
+    elif gpa >= 2.0:
+        print("You're passing, but there's room for improvement.")
+    else:
+        print("You need to work harder. Keep going!")
+
+if __name__ == "__main__":
+    main()
 
